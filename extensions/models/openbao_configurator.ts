@@ -197,6 +197,7 @@ api_addr     = "${args.apiAddr}"
 `;
 }
 
+/** Swamp model that renders and deploys an OpenBao HCL config over SSH, then restarts the service. */
 export const model = {
   type: "@evrardjp/openbao-configurator",
   version: "2026.05.19.1",

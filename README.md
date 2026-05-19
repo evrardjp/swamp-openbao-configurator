@@ -115,4 +115,4 @@ See the [swamp extension docs](https://github.com/systeminit/swamp) for the full
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE.txt).

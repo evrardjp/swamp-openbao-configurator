@@ -9,5 +9,8 @@ models:
   - openbao_configurator.ts
 workflows: []
 vaults: []
-additionalFiles: []
+repository: https://github.com/evrardjp/swamp-openbao-configurator
+additionalFiles:
+  - README.md
+  - LICENSE.txt
 dependencies: []
