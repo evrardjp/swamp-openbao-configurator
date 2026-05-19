@@ -511,12 +511,35 @@ export const model = {
         await log(
           `Running: bao operator init -key-shares=${args.keyShares} -key-threshold=${args.keyThreshold}`,
         );
-        const initOut = await sshOrThrow(
-          host,
-          sshUser,
-          sshKeyPath,
-          `BAO_ADDR=${apiAddr} bao operator init -key-shares=${args.keyShares} -key-threshold=${args.keyThreshold} -format=json -tls-skip-verify`,
-        );
+        let initOut: string;
+        try {
+          initOut = await sshOrThrow(
+            host,
+            sshUser,
+            sshKeyPath,
+            `BAO_ADDR=${apiAddr} bao operator init -key-shares=${args.keyShares} -key-threshold=${args.keyThreshold} -format=json -tls-skip-verify`,
+          );
+        } catch (e: unknown) {
+          const msg = e instanceof Error ? e.message : String(e);
+          if (msg.includes("already initialized")) {
+            await log(`OpenBao on ${host} is already initialized — skipping`);
+            const skipHandle = await context.writeResource(
+              "initState",
+              "result",
+              {
+                host,
+                vaultName: args.vaultName,
+                keyShares: args.keyShares,
+                keyThreshold: args.keyThreshold,
+                skipped: true,
+                skippedAt: new Date().toISOString(),
+              },
+            );
+            const logHandle = await logWriter.finalize();
+            return { dataHandles: [skipHandle, logHandle] };
+          }
+          throw e;
+        }
 
         let initData: { unseal_keys_b64: string[]; root_token: string };
         try {
