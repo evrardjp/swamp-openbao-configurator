@@ -1,10 +1,10 @@
 manifestVersion: 1
 name: '@evrardjp/openbao-configurator'
-version: 2026.05.19.2
+version: 2026.05.19.3
 description: >-
-  OpenBao configuration management via SSH — deploy and manage the full HCL
-  config (UI toggle, raft storage, TCP listener, TLS, cluster/API addresses)
-  and restart the service.
+  OpenBao lifecycle management via SSH — deploy HCL config, initialize (storing
+  unseal keys and root token in a swamp vault), unseal (one key per call for
+  distributed use), and seal.
 models:
   - openbao_configurator.ts
 workflows: []
