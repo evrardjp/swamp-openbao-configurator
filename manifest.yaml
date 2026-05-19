@@ -1,6 +1,6 @@
 manifestVersion: 1
 name: '@evrardjp/openbao-configurator'
-version: 2026.05.19.3
+version: 2026.05.19.4
 description: >-
   OpenBao lifecycle management via SSH — deploy HCL config, initialize (storing
   unseal keys and root token in a swamp vault), unseal (one key per call for

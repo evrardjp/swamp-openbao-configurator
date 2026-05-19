@@ -181,7 +181,9 @@ const InitializedStateSchema = z.object({
   vaultName: z.string(),
   keyShares: z.number(),
   keyThreshold: z.number(),
-  initializedAt: z.string(),
+  initializedAt: z.string().optional(),
+  skippedAt: z.string().optional(),
+  skipped: z.boolean().optional(),
 });
 
 const UnsealArgsSchema = z.object({
@@ -487,9 +489,23 @@ export const model = {
           // status output may be non-JSON if sealed; treat as not initialized
         }
         if (alreadyInitialized) {
-          throw new Error(
-            `OpenBao on ${host} is already initialized — refusing to re-initialize and overwrite existing keys`,
+          await log(
+            `OpenBao on ${host} is already initialized — skipping`,
           );
+          const skipHandle = await context.writeResource(
+            "initState",
+            "result",
+            {
+              host,
+              vaultName: args.vaultName,
+              keyShares: args.keyShares,
+              keyThreshold: args.keyThreshold,
+              skipped: true,
+              skippedAt: new Date().toISOString(),
+            },
+          );
+          const logHandle = await logWriter.finalize();
+          return { dataHandles: [skipHandle, logHandle] };
         }
 
         await log(
