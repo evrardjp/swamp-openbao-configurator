@@ -88,7 +88,7 @@ async function swampVaultPut(
   value: string,
 ): Promise<void> {
   const proc = new DenoCmd("swamp", {
-    args: ["vault", "put", vaultName, key, value],
+    args: ["vault", "put", "--force", vaultName, key, value],
     stdout: "piped",
     stderr: "piped",
   });
