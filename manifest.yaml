@@ -1,6 +1,6 @@
 manifestVersion: 1
 name: '@evrardjp/openbao'
-version: 2026.05.21.1
+version: 2026.05.21.2
 description: >-
   OpenBao lifecycle management via SSH — deploy HCL config, initialize (storing
   unseal keys and root token in a swamp vault), unseal (one key per call for
@@ -9,7 +9,7 @@ models:
   - openbao_configurator.ts
 workflows: []
 vaults: []
-repository: https://github.com/evrardjp/swamp-openbao-configurator
+repository: https://github.com/evrardjp/swamp-openbao
 additionalFiles:
   - README.md
   - LICENSE.txt
