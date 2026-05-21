@@ -1,4 +1,4 @@
-# openbao-configurator
+# openbao
 
 A [swamp](https://github.com/systeminit/swamp) extension that deploys and manages [OpenBao](https://openbao.org/) over SSH — from first config deploy through the full seal/unseal lifecycle. All state is tracked as swamp resources and wired together with CEL expressions.
 
@@ -24,7 +24,7 @@ A [swamp](https://github.com/systeminit/swamp) extension that deploys and manage
 Pull the extension from the registry:
 
 ```sh
-swamp extension pull @evrardjp/openbao-configurator
+swamp extension pull @evrardjp/openbao
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ swamp extension pull @evrardjp/openbao-configurator
 
 ```sh
 swamp model create my-bao \
-  --type @evrardjp/openbao-configurator \
+  --type @evrardjp/openbao \
   --arg host=192.168.1.10 \
   --arg sshUser=admin \
   --arg sshKeyPath=~/.ssh/id_ed25519
@@ -165,7 +165,7 @@ The extension source lives in `extensions/models/openbao_configurator.ts`. To it
 ```sh
 # Bundle and smoke-test against the local swamp daemon
 swamp extension bundle
-swamp model create test-bao --type @evrardjp/openbao-configurator --arg host=...
+swamp model create test-bao --type @evrardjp/openbao --arg host=...
 ```
 
 See the [swamp extension docs](https://github.com/systeminit/swamp) for the full development workflow.
